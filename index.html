@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#101b35" />
+  <title>AS Kitchen Stock</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><div class="brand-mark">AS</div><div><strong>AS Kitchen</strong><span>STOCK CONTROL</span></div></div>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="nav-list" aria-label="Main navigation">
+        <button class="nav-item active" data-page="dashboard"><span class="nav-icon">▦</span> Dashboard</button>
+        <button class="nav-item" data-page="stockcheck"><span class="nav-icon">☷</span> Stock checks <span class="nav-count" id="checkNavCount">1</span></button>
+        <button class="nav-item" data-page="products"><span class="nav-icon">▤</span> Products</button>
+        <button class="nav-item" data-page="locations"><span class="nav-icon">⌖</span> Locations</button>
+        <button class="nav-item" data-page="suppliers"><span class="nav-icon">♧</span> Suppliers</button>
+        <button class="nav-item" data-page="orders"><span class="nav-icon">⇧</span> Purchase orders <span class="nav-count muted" id="orderNavCount">2</span></button>
+        <button class="nav-item" data-page="history"><span class="nav-icon">◷</span> Stock history</button>
+      </nav>
+      <div class="sidebar-bottom"><div class="system-status"><span class="status-dot"></span><div><strong>Demo workspace</strong><small>Changes saved on this device</small></div></div><div class="profile"><div class="avatar">AM</div><div><strong>Alex Morgan</strong><small>Stock manager</small></div><button class="more-btn" aria-label="Profile options">···</button></div></div>
+    </aside>
+    <main class="main-area">
+      <header class="topbar"><button class="mobile-menu" id="mobileMenu" aria-label="Open menu">☰</button><div class="breadcrumb">Workspace <span>/</span> <strong id="crumb">Dashboard</strong></div><div class="top-actions"><span class="today" id="today"></span><button class="icon-button" title="Notifications">♧<i></i></button><div class="avatar small">AM</div></div></header>
+      <div class="page-wrap">
+        <section class="page active" id="page-dashboard">
+          <div class="page-heading"><div><div class="eyebrow">OVERVIEW</div><h1>Good morning, Alex <span class="wave">✦</span></h1><p class="subheading">Here’s what’s happening across your kitchen operations.</p></div><button class="btn primary" data-go="stockcheck">＋ Start stock check</button></div>
+          <div class="stats-grid">
+            <article class="stat-card"><div class="stat-top"><span>Total products</span><span class="stat-icon blue">▤</span></div><div class="stat-value" id="statProducts">128</div><div class="stat-foot"><span class="positive">●</span> Active catalogue</div></article>
+            <article class="stat-card"><div class="stat-top"><span>Below minimum</span><span class="stat-icon orange">↘</span></div><div class="stat-value" id="statLow">8</div><div class="stat-foot"><span class="warning-text">Needs attention</span> across locations</div></article>
+            <article class="stat-card"><div class="stat-top"><span>Open purchase orders</span><span class="stat-icon purple">⇧</span></div><div class="stat-value" id="statOrders">2</div><div class="stat-foot">Awaiting manager review</div></article>
+            <article class="stat-card"><div class="stat-top"><span>Locations</span><span class="stat-icon green">⌖</span></div><div class="stat-value" id="statLocations">6</div><div class="stat-foot">Across your workspace</div></article>
+          </div>
+          <div class="dashboard-grid">
+            <section class="panel priority-panel"><div class="panel-heading"><div><h2>Items to replenish</h2><p>Products currently below minimum stock</p></div><button class="text-button" data-go="orders">View orders <span>→</span></button></div><div id="replenishList" class="replenish-list"></div></section>
+            <section class="panel activity-panel"><div class="panel-heading"><div><h2>Quick actions</h2><p>Keep your stock up to date</p></div></div><button class="quick-action" data-go="stockcheck"><span class="quick-icon blue">☷</span><span><strong>Continue stock check</strong><small>Count products by location</small></span><b>→</b></button><button class="quick-action" data-go="products"><span class="quick-icon purple">＋</span><span><strong>Add a product</strong><small>Expand your product catalogue</small></span><b>→</b></button><button class="quick-action" data-go="suppliers"><span class="quick-icon green">♧</span><span><strong>Manage suppliers</strong><small>Keep supplier details organised</small></span><b>→</b></button></section>
+          </div>
+          <section class="panel location-panel"><div class="panel-heading"><div><h2>Stock by location</h2><p>Overview of your storage areas</p></div><button class="text-button" data-go="locations">All locations →</button></div><div class="location-grid" id="locationOverview"></div></section>
+          <div class="demo-note"><span>✦</span><div><strong>You’re viewing sample data</strong><p>This demo stores changes in your browser on this device. It is not yet connected to a shared database or live supplier accounts.</p></div></div>
+        </section>
+        <section class="page" id="page-stockcheck">
+          <div class="page-heading"><div><div class="eyebrow">INVENTORY MANAGEMENT</div><h1>Stock checks</h1><p class="subheading">Count what you have, location by location.</p></div><button class="btn primary" id="newCheckBtn">＋ New stock check</button></div>
+          <div class="panel check-intro"><div class="check-symbol">☷</div><div class="check-copy"><h2 id="checkTitle">Weekly kitchen stock check</h2><p id="checkDescription">Complete each location. Mark an item as zero if it is not in stock. Unchecked items will never be treated as zero.</p></div><div class="check-progress"><strong id="checkProgressText">0%</strong><span>OVERALL COMPLETE</span><div class="progress-track"><i id="checkProgressBar"></i></div></div></div>
+          <div class="check-layout"><div class="panel locations-panel"><div class="panel-heading"><div><h2>Locations</h2><p>Choose an area to start counting</p></div><span class="tiny-tag" id="locationProgress">0 / 6 done</span></div><div id="checkLocationList" class="check-location-list"></div></div><div class="panel count-panel"><div class="panel-heading count-heading"><div><div class="eyebrow" id="activeLocationType">STORAGE AREA</div><h2 id="activeLocationName">Select a location</h2><p id="activeLocationMeta">Choose a location on the left to see its products.</p></div><button class="btn outline small-btn" id="completeLocationBtn" disabled>Complete location</button></div><div class="table-tools"><label class="search-box"><span>⌕</span><input id="stockSearch" placeholder="Search products in this location" /></label><span class="table-hint">Count each item or mark zero</span></div><div class="stock-table-wrap"><table class="data-table"><thead><tr><th>PRODUCT</th><th>MINIMUM</th><th>COUNTED</th><th>STATUS</th></tr></thead><tbody id="stockLines"></tbody></table><div class="empty-state" id="stockEmpty">Select a location to begin.</div></div><div class="count-footer"><span id="countFooterText">No location selected</span><button class="btn primary" id="saveCountsBtn" disabled>Save counts</button></div></div></div>
+          <div class="finish-row"><div><strong>Ready to generate purchase needs?</strong><p>All included locations must be completed before you can finish this stock check.</p></div><button class="btn dark" id="finishCheckBtn" disabled>Finish stock check <span>→</span></button></div>
+        </section>
+        <section class="page" id="page-products">
+          <div class="page-heading"><div><div class="eyebrow">CATALOGUE</div><h1>Products</h1><p class="subheading">Manage your ingredients, supplies and stock rules.</p></div><button class="btn primary" id="addProductBtn">＋ Add product</button></div>
+          <div class="toolbar panel"><label class="search-box"><span>⌕</span><input id="productSearch" placeholder="Search products or SKU" /></label><select id="productCategory"><option value="all">All categories</option><option>Fresh produce</option><option>Dairy</option><option>Meat & poultry</option><option>Dry goods</option><option>Frozen</option><option>Cleaning</option></select><span class="toolbar-count" id="productCount">0 products</span></div>
+          <div class="panel table-panel"><table class="data-table"><thead><tr><th>PRODUCT</th><th>CATEGORY</th><th>BASE UNIT</th><th>PREFERRED SUPPLIER</th><th>LOCATIONS</th><th>STATUS</th><th></th></tr></thead><tbody id="productsTable"></tbody></table><div class="empty-state" id="productsEmpty">No products found.</div></div>
+        </section>
+        <section class="page" id="page-locations">
+          <div class="page-heading"><div><div class="eyebrow">STORAGE SETUP</div><h1>Locations</h1><p class="subheading">Organise your stock areas and minimum levels.</p></div><button class="btn primary" id="addLocationBtn">＋ Add location</button></div>
+          <div class="location-cards" id="locationsCards"></div>
+        </section>
+        <section class="page" id="page-suppliers">
+          <div class="page-heading"><div><div class="eyebrow">PURCHASING</div><h1>Suppliers</h1><p class="subheading">Your preferred suppliers and ordering contacts.</p></div><button class="btn primary" id="addSupplierBtn">＋ Add supplier</button></div>
+          <div class="supplier-grid" id="supplierGrid"></div>
+        </section>
+        <section class="page" id="page-orders">
+          <div class="page-heading"><div><div class="eyebrow">PURCHASING</div><h1>Purchase orders</h1><p class="subheading">Review consolidated replenishment needs by supplier.</p></div><button class="btn outline" id="generateOrdersBtn">↻ Generate from latest check</button></div>
+          <div class="order-summary" id="orderSummary"></div><div class="orders-list" id="ordersList"></div>
+          <div class="approval-note"><span>ⓘ</span><div><strong>Manager approval required</strong><p>Orders are drafts only. Nothing is sent to suppliers automatically.</p></div></div>
+        </section>
+        <section class="page" id="page-history">
+          <div class="page-heading"><div><div class="eyebrow">AUDIT TRAIL</div><h1>Stock history</h1><p class="subheading">A record of stock checks and inventory activity.</p></div></div>
+          <div class="panel table-panel"><div class="panel-heading"><div><h2>Recent activity</h2><p>Actions recorded in this demo workspace</p></div></div><div id="historyList" class="history-list"></div></div>
+        </section>
+      </div>
+    </main>
+  </div>
+  <div class="modal-backdrop" id="modalBackdrop"><div class="modal" role="dialog" aria-modal="true"><div class="modal-header"><div><div class="eyebrow" id="modalEyebrow">NEW ITEM</div><h2 id="modalTitle">Add item</h2></div><button class="close-modal" id="closeModal" aria-label="Close">×</button></div><form id="modalForm"><div id="modalFields" class="modal-fields"></div><div class="modal-actions"><button type="button" class="btn outline" id="cancelModal">Cancel</button><button type="submit" class="btn primary" id="modalSubmit">Save</button></div></form></div></div>
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
