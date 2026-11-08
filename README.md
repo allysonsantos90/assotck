@@ -22,19 +22,19 @@ Bilingual (English / Português) kitchen stock and purchasing application built 
 
 ## 1. Create and configure Supabase
 
-1. Create a project at https://supabase.com/dashboard.
-2. Open **SQL Editor** and run the complete migration at `supabase/migrations/202611070001_initial_schema.sql`.
-3. In **Project Settings → API**, copy the Project URL and the publishable key (or legacy anon key). Never put the `service_role` key in this browser application.
-4. In the project Authentication settings, configure the allowed site URL and redirect URLs for your local and production app.
-5. For email confirmations, configure SMTP / the email provider before inviting staff.
+1. The connected project is **Stock** (`jgfqrdjtngaqhksmqpwo`) at `https://jgfqrdjtngaqhksmqpwo.supabase.co`.
+2. The database migrations are already applied to this project. Do not run the initial migration a second time in the SQL Editor.
+3. In **Project Settings → API Keys**, copy the **publishable key**. Never use the `service_role` or secret key in this browser application.
+4. In Supabase **Authentication → URL Configuration**, set the Site URL and allowed redirect URLs to the local and production app URLs you actually use.
+5. For email confirmations and team invitations, configure SMTP / the email provider before inviting staff.
 
-The SQL migration creates the tables, indexes, signup bootstrap, invitation acceptance, role functions, stock-check RPCs, audit history and RLS policies. The first account created through the app becomes the manager of the workspace entered on the sign-up form.
+The tracked migration files correspond to the schema and the follow-up function-permission hardening already applied to the connected database. The first account created through the app becomes the manager of the workspace entered on the sign-up form.
 
 ## 2. Run locally
 
 ```bash
 cp .env.example .env
-# Edit .env with your Supabase URL and publishable/anon key
+# Add the Supabase publishable key to VITE_SUPABASE_PUBLISHABLE_KEY in .env
 npm install
 npm run dev
 ```
@@ -50,8 +50,8 @@ npm run preview
 
 The production files are generated in `dist/`. Deploy this Vite app to Vercel, Netlify, Cloudflare Pages or another static host. Configure these build environment variables in the hosting provider:
 
-- `VITE_SUPABASE_URL`
-- `VITE_SUPABASE_ANON_KEY`
+- `VITE_SUPABASE_URL` (`https://jgfqrdjtngaqhksmqpwo.supabase.co` for the connected Stock project)
+- `VITE_SUPABASE_PUBLISHABLE_KEY` (recommended; `VITE_SUPABASE_ANON_KEY` remains supported for older deployments)
 
 The publishable/anon key is expected to be visible in a browser; database access is protected by RLS. Do not use a Supabase `service_role` key in the frontend.
 
@@ -105,11 +105,12 @@ Aplicativo bilíngue (English / Português) para controle de estoque e compras d
 
 ### Configuração
 
-1. Crie um projeto no [Supabase](https://supabase.com/dashboard).
-2. Abra **SQL Editor** e execute `supabase/migrations/202611070001_initial_schema.sql`.
-3. Em **Project Settings → API**, copie a URL do projeto e a chave publicável (ou a chave anon antiga). Nunca use a chave `service_role` no navegador.
-4. Copie `.env.example` para `.env` e preencha `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY`.
-5. Execute:
+1. O projeto conectado é **Stock** (`jgfqrdjtngaqhksmqpwo`), em `https://jgfqrdjtngaqhksmqpwo.supabase.co`.
+2. As migrações do banco já foram aplicadas. Não execute novamente a migração inicial no SQL Editor.
+3. Em **Project Settings → API Keys**, copie a **publishable key**. Nunca use a chave `service_role` ou uma chave secreta no navegador.
+4. Copie `.env.example` para `.env` e preencha `VITE_SUPABASE_PUBLISHABLE_KEY`. A URL já está configurada no exemplo.
+5. Em **Authentication → URL Configuration**, configure a Site URL e as URLs de redirecionamento com os endereços reais do aplicativo local e publicado.
+6. Execute:
 
 ```bash
 npm install
