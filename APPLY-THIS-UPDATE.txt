@@ -1,42 +1,19 @@
-AS KITCHEN STOCK — PURCHASE WORKFLOW UPDATE
+AS KITCHEN STOCK — DASHBOARD & ANALYTICS UPDATE
 
-ESCOPO
-- Preparar pedidos de compra no AS Kitchen Stock, sem comparar preços.
-- O pedido efetivo continua sendo realizado no aplicativo externo escolhido pela cozinha.
-- Imprimir / salvar como PDF, exportar CSV genérico e copiar pedido como texto.
-- Registrar referência externa, data do pedido, previsão de entrega, prioridade e observações.
-- Acompanhar rascunho, aprovado, pedido externo, recebimento parcial, recebido e cancelado.
-- Duplicar pedidos existentes como novos rascunhos.
-- Registrar recebimentos por produto e localização, aceitando quantidades boas e danificadas separadamente.
-- Quantidades aceitas atualizam o saldo e geram movimentações; quantidades danificadas ficam registradas sem aumentar o estoque.
-- Manter histórico de status, alterações e entregas por pedido.
+PACKAGE
+This ZIP contains the complete AS Kitchen Stock v2 source tree, including the previous stock, product detail, location detail, supplier detail, purchasing and receiving features, plus the new Dashboard analytics.
 
-ARQUIVOS DA APLICAÇÃO
-- src/App.tsx
-- src/style.css
-- src/i18n.ts
-- README.md
-
-MIGRAÇÕES (HISTÓRICO DO BANCO)
-- supabase/migrations/20261109142803_purchase_order_external_workflow_and_receiving.sql
-- supabase/migrations/20261109142848_purchase_order_actor_profile_relations.sql
-- supabase/migrations/20261109143410_fix_duplicate_purchase_order_uuid_generation.sql
-- supabase/migrations/20261109145240_purchase_order_details_column_permissions.sql
-
-COMO APLICAR NO GITHUB DESKTOP
-1. Faça backup da pasta local atual do repositório assotck.
-2. Extraia o ZIP completo e copie o conteúdo da pasta assotck para a raiz do clone local, mantendo a estrutura de pastas.
-3. Substitua os arquivos da aplicação listados acima. Adicione as três migrações à pasta supabase/migrations.
-4. Preserve o arquivo .env local (ele não é distribuído neste pacote), a pasta .git e os valores de Variables do GitHub Actions.
-5. Preserve .github/workflows/deploy.yml; o workflow existente do GitHub Pages já está configurado para compilar o projeto e publicar dist/.
-6. No GitHub Desktop, confira os arquivos alterados, faça commit e clique em Push origin.
-7. Abra GitHub Actions e confirme que build e deploy terminaram com sucesso. Depois atualize o site com Ctrl+Shift+R.
+APPLY IN GITHUB DESKTOP
+1. Back up your existing local repository folder.
+2. Extract this ZIP. Copy the contents of the askitchenstock-v2 folder into the root of your local clone of allysonsantos90/assotck, allowing matching files to be replaced.
+3. Preserve your local .git folder and your existing .env file. The package contains .env.example, not your private credentials.
+4. Review the changes. The new analytics component is src/DashboardAnalytics.tsx and is mounted from src/App.tsx; styles are appended to src/style.css.
+5. In the repository folder run: npm install, then npm run build.
+6. If the build succeeds, commit the changes and click Push origin.
+7. Open GitHub Actions and confirm the GitHub Pages deployment workflow succeeds. Only then refresh the published site.
 
 SUPABASE
-As três migrações listadas acima já foram aplicadas e verificadas no projeto Stock (jgfqrdjtngaqhksmqpwo). Os arquivos SQL estão no pacote para manter o histórico do schema no repositório e para futuras instalações novas. NÃO execute novamente essas migrações no projeto Stock conectado.
+No database migration is required for this Dashboard update. Do not rerun any existing migrations included in the source tree against the already-connected Stock project. The dashboard reads existing tables, organization scoping and RLS policies. It does not write stock balances or insert sample transactions.
 
-VALIDAÇÃO E LIMITES
-- Os arquivos completos da aplicação foram mantidos; não substitua App.tsx por um fragmento de função.
-- A sintaxe TypeScript/TSX, as chaves de tradução EN/PT e os caminhos de arquivos são verificados antes da entrega.
-- O fluxo de marcar pedido externo, editar dados da entrega, registrar recebimento parcial, duplicar e cancelar é testado no Supabase dentro de transações revertidas; nenhum registro de teste é mantido. A permissão de edição direta foi limitada às quatro colunas de dados externos e permanece protegida pela política RLS de gerente.
-- O build completo precisa ser confirmado pelo GitHub Actions após o Push, pois a instalação das dependências npm excedeu o tempo limite neste ambiente.
+IMPORTANT
+The GitHub integration returned 403 Resource not accessible by integration when attempting remote writes. Nothing was pushed by this session. The complete production build could not be run here because dependencies were unavailable in the local npm cache and could not be downloaded. A strict TypeScript check of the new analytics component with temporary type declarations passed; please confirm the full build and deployment using your local environment/GitHub Actions.

@@ -18,6 +18,7 @@ Bilingual (English / Português) kitchen stock and purchasing application built 
 - Orders can be printed or saved as PDF, exported as generic CSV, or copied as formatted text. The exports do not depend on a particular supplier or external purchasing app.
 - Managers can duplicate old orders as new drafts and cancel eligible orders before any receipt is recorded.
 - Deliveries can be recorded partially or in full, with accepted and damaged quantities tracked separately for each product and destination location. Accepted quantities update on-hand stock and create stock movements; damaged quantities are recorded but do not increase stock.
+- The analytics dashboard includes 7/30/90-day and custom date filters, product/location/movement filters, movement trends, consumption and waste rankings by product, recorded waste reasons, consumption/waste event counts by location, general location activity, replenishment alerts and recent movements. Transfer pairs are counted once; quantities stay in each product's base unit instead of combining unlike units.
 - Order activity and delivery receipts are retained for later review. Price comparison is intentionally not included because it is handled in the external purchasing app.
 
 ## Requirements
@@ -112,6 +113,7 @@ Aplicativo bilíngue (English / Português) para controle de estoque e compras d
 - Pedidos podem ser impressos ou salvos em PDF, exportados para CSV genérico ou copiados como texto formatado. Os formatos não dependem de um fornecedor ou aplicativo específico.
 - É possível duplicar pedidos antigos como novos rascunhos e cancelar pedidos elegíveis antes de existir recebimento.
 - O recebimento pode ser parcial ou completo, com quantidades aceitas e danificadas registradas separadamente por produto e localização. Quantidades aceitas aumentam o estoque e geram movimentações; itens danificados ficam registrados, mas não aumentam o saldo.
+- O Dashboard analítico oferece filtros de 7/30/90 dias e intervalo personalizado, filtros por produto/localização/tipo, tendências de movimentações, rankings de consumo e desperdício por produto, motivos registrados para desperdício, contagem de operações de consumo/desperdício por localização, atividade geral por local, alertas de reposição e histórico recente. Transferências são contadas uma vez; as quantidades permanecem na unidade base de cada produto, sem somar unidades incompatíveis.
 - O histórico de ações e recebimentos fica disponível para consulta. A comparação de preços não faz parte deste aplicativo porque já é realizada no outro sistema de compras.
 
 ### Configuração
