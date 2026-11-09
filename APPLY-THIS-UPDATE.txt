@@ -1,0 +1,42 @@
+AS KITCHEN STOCK — PURCHASE WORKFLOW UPDATE
+
+ESCOPO
+- Preparar pedidos de compra no AS Kitchen Stock, sem comparar preços.
+- O pedido efetivo continua sendo realizado no aplicativo externo escolhido pela cozinha.
+- Imprimir / salvar como PDF, exportar CSV genérico e copiar pedido como texto.
+- Registrar referência externa, data do pedido, previsão de entrega, prioridade e observações.
+- Acompanhar rascunho, aprovado, pedido externo, recebimento parcial, recebido e cancelado.
+- Duplicar pedidos existentes como novos rascunhos.
+- Registrar recebimentos por produto e localização, aceitando quantidades boas e danificadas separadamente.
+- Quantidades aceitas atualizam o saldo e geram movimentações; quantidades danificadas ficam registradas sem aumentar o estoque.
+- Manter histórico de status, alterações e entregas por pedido.
+
+ARQUIVOS DA APLICAÇÃO
+- src/App.tsx
+- src/style.css
+- src/i18n.ts
+- README.md
+
+MIGRAÇÕES (HISTÓRICO DO BANCO)
+- supabase/migrations/20261109142803_purchase_order_external_workflow_and_receiving.sql
+- supabase/migrations/20261109142848_purchase_order_actor_profile_relations.sql
+- supabase/migrations/20261109143410_fix_duplicate_purchase_order_uuid_generation.sql
+- supabase/migrations/20261109145240_purchase_order_details_column_permissions.sql
+
+COMO APLICAR NO GITHUB DESKTOP
+1. Faça backup da pasta local atual do repositório assotck.
+2. Extraia o ZIP completo e copie o conteúdo da pasta assotck para a raiz do clone local, mantendo a estrutura de pastas.
+3. Substitua os arquivos da aplicação listados acima. Adicione as três migrações à pasta supabase/migrations.
+4. Preserve o arquivo .env local (ele não é distribuído neste pacote), a pasta .git e os valores de Variables do GitHub Actions.
+5. Preserve .github/workflows/deploy.yml; o workflow existente do GitHub Pages já está configurado para compilar o projeto e publicar dist/.
+6. No GitHub Desktop, confira os arquivos alterados, faça commit e clique em Push origin.
+7. Abra GitHub Actions e confirme que build e deploy terminaram com sucesso. Depois atualize o site com Ctrl+Shift+R.
+
+SUPABASE
+As três migrações listadas acima já foram aplicadas e verificadas no projeto Stock (jgfqrdjtngaqhksmqpwo). Os arquivos SQL estão no pacote para manter o histórico do schema no repositório e para futuras instalações novas. NÃO execute novamente essas migrações no projeto Stock conectado.
+
+VALIDAÇÃO E LIMITES
+- Os arquivos completos da aplicação foram mantidos; não substitua App.tsx por um fragmento de função.
+- A sintaxe TypeScript/TSX, as chaves de tradução EN/PT e os caminhos de arquivos são verificados antes da entrega.
+- O fluxo de marcar pedido externo, editar dados da entrega, registrar recebimento parcial, duplicar e cancelar é testado no Supabase dentro de transações revertidas; nenhum registro de teste é mantido. A permissão de edição direta foi limitada às quatro colunas de dados externos e permanece protegida pela política RLS de gerente.
+- O build completo precisa ser confirmado pelo GitHub Actions após o Push, pois a instalação das dependências npm excedeu o tempo limite neste ambiente.
