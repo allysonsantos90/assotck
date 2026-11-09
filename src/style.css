@@ -26,3 +26,18 @@
 .edit-count-btn{margin:0!important;padding:2px 0!important;text-align:left;width:max-content;font-size:9px}
 .cancel-count-edit{background:#f2f4f7;color:#66748b}
 @media(max-width:760px){.product-stock-list{min-width:180px}.counted-state{min-width:145px}}
+
+
+/* Stock-check snapshot details and safe archive actions */
+.count-product-info{display:grid;gap:4px;min-width:180px}
+.count-reference{display:flex;gap:12px;flex-wrap:wrap;margin-top:4px}
+.count-reference span{font-size:9px;color:#7f8b9e}
+.count-reference strong{color:#41516a;font-size:10px}
+.completed-label{display:inline-flex;align-items:center;gap:5px;padding:6px 9px;border-radius:20px;background:#e5f7ef;color:#14845f;font-size:10px;font-weight:700}
+.completion-meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:-5px 0 12px;padding:8px 10px;border-radius:7px;background:#f2f8f5;color:#648276;font-size:9px}
+.check-location small{white-space:nowrap}
+.action-buttons{display:inline-flex;align-items:center;gap:5px}
+.danger-action{color:#bd5555;border:1px solid #f0dddd;background:#fffafa;border-radius:7px;width:30px;height:30px;display:inline-grid;place-items:center}
+.danger-action:hover{background:#fff0f0;color:#a83232;border-color:#e8bcbc}
+.archived-tag{font-style:normal;font-size:8px;font-weight:600;color:#8792a4;background:#edf0f5;border-radius:10px;padding:2px 6px;margin-left:6px}
+@media(max-width:760px){.completion-meta{display:grid}.count-reference{gap:8px}}
